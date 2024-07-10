@@ -7,6 +7,7 @@ const User = require('../models/User');
 // Create a new post
 router.post('/', async (req, res) => {
   const { title, content, authorId, tags } = req.body;
+  debug('Creating new post:', req.body);
 
   try {
     // Split the tags string into an array if provided, otherwise set an empty array

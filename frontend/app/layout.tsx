@@ -13,7 +13,6 @@ export default function RootLayout({
       <body>
         <Theme>
           <AuthProvider>
-            <Header />
             {children}
           </AuthProvider>
         </Theme>

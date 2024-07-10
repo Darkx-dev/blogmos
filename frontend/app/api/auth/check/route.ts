@@ -10,9 +10,11 @@ export async function GET() {
   }
 
   try {
-    const decoded = jwt.verify(token.value, process.env.JWT_SECRET as string) as { username: string };
+    const decoded = jwt.verify(token.value, process.env.JWT_SECRET as string) as { username: string, userId: string, isAdmin: boolean };
     return NextResponse.json({
-      username: decoded.username
+      username: decoded.username,
+      userId: decoded.userId,
+      isAdmin: decoded.isAdmin // Replace 'admin' with your actual admin user ID
     }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: 'Invalid token' }, { status: 401 });

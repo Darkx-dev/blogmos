@@ -1,17 +1,16 @@
-const debug = require('debug')("blogmos:development")
+const debug = require("debug")("blogmos:development");
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-
 const router = express.Router();
 
 // Signup route
-router.post("/signup", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    console.log(req.body);
+    debug(req.body);
 
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
@@ -46,7 +45,7 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-    debug(req.body)
+    debug(req.body);
 
     // Find user by username
     const user = await User.findOne({ username });
@@ -62,24 +61,32 @@ router.post("/login", async (req, res) => {
 
     // Create and sign JWT
     const token = jwt.sign(
-      { userId: user._id, username: user.username },
+      {
+        userId: user._id,
+        username: user.username,
+      },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      {
+        expiresIn: "1h",
+      }
     );
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60, // 1 hour
     });
-    res.json({ username: user.username });
+    res.json({
+      username: user.username,
+      profilePicture: user.profilePicture,
+      userId: user._id,
+    });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error: error.message });
   }
 });
 
+// Logout route
 router.get("/logout", (req, res) => {
-  res.clearCookie("token");
   res.json({ message: "Logged out successfully" });
-
   console.log("User logged out");
 });
 

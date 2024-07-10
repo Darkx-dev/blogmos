@@ -32,13 +32,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     checkToken();
   }, []);
   const login = (userData: User) => {
-    // console.log(userData)
     setUser(userData);
     setAuthToken(userData.token);
   };
 
   const logout = async () => {
-    const response = await fetch("/api/auth/logout", { method: "POST" });
+    const response = await fetch("/api/auth/logout", { method: "GET" });
     if (response.ok) {
       setUser(null);
       setAuthToken(null);
