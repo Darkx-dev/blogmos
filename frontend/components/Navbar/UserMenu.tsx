@@ -15,9 +15,22 @@ const UserMenu = () => {
   const { user, logout } = useAuth();
   if (!user)
     return (
-      <div className="*:px-2 *:py-1 first:*:bg-cyan-400 last:*:bg-red-500 space-x-2 *:rounded-lg">
-        <Link href="/login">Login</Link>
-        <Link href="/register">Register</Link>
+      <div className="space-x-5 max-md:space-x-2 flex items-center">
+        <Link href="/register">
+          <button
+            className="align-middle select-none font-medium  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 max-md:py-2 max-md:px-4 px-6 border-2 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-full"
+            type="button"
+          >
+            Login
+          </button>
+        </Link>
+        <button
+          className="align-middle select-none font-medium  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 max-md:py-2 max-md:px-4 bg-gradient-to-tr from-blue-900 to-cyan-800 shadow-md dark:shadow-gray-900/10 hover:shadow-lg text-white hover:shadow-gray-900/20 active:opacity-[0.85] rounded-full"
+          type="button"
+        >
+          Register
+        </button>
+        <ThemeSwitch />
       </div>
     );
   if (user)
@@ -27,8 +40,7 @@ const UserMenu = () => {
         radius="sm"
         classNames={{
           base: "before:bg-default-200", // change arrow background
-          content:
-            "p-0 border-small border-divider",
+          content: "p-0 border-small border-divider",
         }}
       >
         <DropdownTrigger>
@@ -46,7 +58,7 @@ const UserMenu = () => {
         <DropdownMenu
           aria-label="Custom item styles"
           disabledKeys={["profile"]}
-          className="p-3 dark:bg-black text-white"
+          className="p-3 dark:bg-zinc-800/95 bg-zinc-600 rounded-lg text-white"
           itemClasses={{
             base: [
               "rounded-md",
@@ -64,23 +76,21 @@ const UserMenu = () => {
           <DropdownSection aria-label="Profile & Actions" showDivider>
             {/* <DropdownItem key="dashboard">Dashboard</DropdownItem> */}
             {/* <DropdownItem key="settings">Settings</DropdownItem> */}
-            <DropdownItem key="new_project" endContent={""} href="/posts/new">
-              New Post
+            <DropdownItem key="new_project" endContent={""}>
+              <Link href={"/posts/new"}>New Post</Link>
             </DropdownItem>
-            <DropdownItem key="home" endContent={""} href="/">
-              Home
+            <DropdownItem key="home" endContent={""}>
+              <Link href={"/"}>Home</Link>
             </DropdownItem>
           </DropdownSection>
-
-          {/* <DropdownSection aria-label="Preferences" showDivider>
-            <DropdownItem key="quick_search" shortcut="⌘K">
-              Quick search
-            </DropdownItem>
-          </DropdownSection> */}
-
           <DropdownSection aria-label="Help & Feedback">
             {/* <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem> */}
-            <DropdownItem href="/api/auth/logout" onClick={logout} key="logout">
+            <DropdownItem
+              href="/api/auth/logout"
+              onClick={logout}
+              key="logout"
+              className="text-red-500"
+            >
               Log Out
             </DropdownItem>
             <DropdownItem key="theme-switch">

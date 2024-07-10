@@ -9,7 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="dark:bg-gray-900">
         <Theme>
           <AuthProvider>
             {children}

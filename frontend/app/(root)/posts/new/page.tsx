@@ -8,6 +8,7 @@ const CreatePost = () => {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
   const [error, setError] = useState("");
   const { user } = useAuth();
@@ -18,6 +19,7 @@ const CreatePost = () => {
     try {
       const response = await api.post("/posts", {
         title,
+        description,
         content,
         authorId: user.userId,
         tags,
@@ -36,28 +38,38 @@ const CreatePost = () => {
   }, [error]);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-4 py-8 font-mono">
       <h1 className="text-3xl font-bold mb-6">Create New Blog Post</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="title" className="block text-sm font-medium ">
-            Title
+            Title (*)
           </label>
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="mt-1 block w-full rounded-md p-2 border-gray-300 shadow-md outline-none bg-zinc-500/10 focus:border-indigo-500 focus:ring-indigo-500"
+          />
+          <p className="mt-2 text-sm text-red-600">{error}</p>
+        </div>
+        <div>
+          <label htmlFor="description" className="block text-sm font-medium ">
+            Description (*)
+          </label>
+          <input
+            type="text"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 block w-full rounded-md p-2 border-gray-300 shadow-md outline-none bg-zinc-500/10 focus:border-indigo-500 focus:ring-indigo-500"
           />
           <p className="mt-2 text-sm text-red-600">{error}</p>
         </div>
 
         <div>
-          <label
-            htmlFor="content"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="content" className="block text-sm font-medium ">
             Content
           </label>
           <textarea
@@ -65,16 +77,13 @@ const CreatePost = () => {
             rows={10}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="mt-1 block w-full rounded-md p-2 border-gray-300 shadow-md outline-none bg-zinc-500/10 focus:border-indigo-500 focus:ring-indigo-500"
           ></textarea>
           <p className="mt-2 text-sm text-red-600">{error}</p>
         </div>
 
         <div>
-          <label
-            htmlFor="tags"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="tags" className="block text-sm font-medium ">
             Tags (comma-separated)
           </label>
           <input
@@ -82,7 +91,7 @@ const CreatePost = () => {
             id="tags"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-md outline-none bg-zinc-500/10 p-2 focus:border-indigo-500 focus:ring-indigo-500"
           />
           <p className="mt-2 text-sm text-red-600">{error}</p>
         </div>

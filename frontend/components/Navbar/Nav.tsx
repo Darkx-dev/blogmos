@@ -1,45 +1,23 @@
+
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
-  Button,
 } from "@nextui-org/react";
 import UserMenu from "./UserMenu";
+import Logo from "./Logo";
 
 const Nav = () => {
   return (
-    <Navbar shouldHideOnScroll className="md:*:px-32 *:px-4 *:max-w-full font-mono">
+    <Navbar
+      shouldHideOnScroll
+      className="md:*:px-32 *:px-4 *:max-w-full items-start font-mono dark:bg-gray-500/20 shadow dark:shadow-white/10"
+    >
       <NavbarBrand>
-        <p className="font-bold text-inherit">Blogmos</p>
+        <Logo/>
       </NavbarBrand>
-      {/* <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="/">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
-      </NavbarContent> */}
       <NavbarContent justify="end">
-        {/* <NavbarItem className="hidden lg:flex">
-          <Link href="/login">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="/register" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem> */}
         <NavbarItem>
           <UserMenu />
         </NavbarItem>

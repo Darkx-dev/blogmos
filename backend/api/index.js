@@ -3,6 +3,10 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
+// Todo: Figure out how to use multer memory storage for buffer 
+// const storage = multer.memoryStorage()
+// const upload = multer({ storage: storage })
+
 const config = require('../config/config')
 const { connectDB } = require('../utils/db');
 const { errorHandler } = require('../middleware/errorHandler');

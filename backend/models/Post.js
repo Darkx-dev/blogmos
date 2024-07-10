@@ -5,9 +5,16 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+    max: 200,
+    trim: true, 
+  },
   content: {
     type: String,
     required: true,
+    trim: false
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,

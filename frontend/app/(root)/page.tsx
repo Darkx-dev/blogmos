@@ -1,36 +1,36 @@
 "use server";
 import React, { ReactNode } from "react";
-import api from "@/utils/api";
 import { postTypes } from "@/types/models";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import Card from "@/components/Card";
 
 const Home = async () => {
-  const response = await api.get("/posts");
-  const posts = response.data;
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api"}/posts`,
+    { next: { tags: ["postsss"] }, credentials: "include", cache: "no-cache" }
+  ).catch((err) => console.error(err));
+  const posts = await response?.json();
+
   return (
-    <div className="px-4 md:px-32 font-mono">
-      <section id="new-posts">
-        <h1>New posts</h1>
-        {posts && (
-          <BentoGrid className="max-w-7xl mx-auto md:grid-cols-7">
-            {posts.map((post: postTypes, _: number) => {
+    <div className="px-4 md:px-32">
+      <section id="new-posts" className="mt-5">
+        <h1 className="border-l-4 border-pink-500 pl-1">Recent posts</h1>
+        <hr className="my-2" />
+        <div className="grid justify-center md:grid-cols-2 gap-5 auto-cols-[100%] ">
+          {posts &&
+            posts.map((post: postTypes, _: number) => {
               return (
-                <BentoGridItem
+                <Card
                   key={_}
-                  title={post.title}
-                  description={post.content}
-                  header={<Skeleton>Post Image Goes here</Skeleton>}
+                  title={post.title!}
+                  description={post.description!}
+                  createdAt={post.createdAt}
+                  author={post.author?.username}
+                  authorId={post.author?._id}
                   postId={post._id}
-                  className={`${
-                    _ % 3 == 0 || _ % 2 === 0
-                      ? "md:col-span-2"
-                      : "md:col-span-3"
-                  } shadow-md`}
                 />
               );
             })}
-          </BentoGrid>
-        )}
+        </div>
       </section>
     </div>
   );
@@ -38,7 +38,7 @@ const Home = async () => {
 
 const Skeleton = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl items-center justify-center  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]  border border-transparent dark:border-white/[0.2] bg-neutral-100 dark:bg-black">
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl items-center justify-center dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]  border border-transparent dark:border-white/[0.2] bg-neutral-100 dark:bg-black">
       {children}
     </div>
   );

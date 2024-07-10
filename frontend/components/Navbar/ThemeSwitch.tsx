@@ -1,17 +1,36 @@
 "use client";
+import { IconMoon, IconSun } from "@tabler/icons-react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import React from "react";
 
 const ThemeSwitch = () => {
+  const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
+  
   const handleTheme = () => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
-  return (
-    <button onClick={handleTheme}>
-      {resolvedTheme === "dark" ? "Light" : "Dark"}
-    </button>
-  );
+
+  useEffect(() => {
+    setMounted(true);
+  }, [resolvedTheme]);
+
+  if (mounted)
+    return (
+      <button
+        onClick={handleTheme}
+        className="h-full gap-2 max-md:gap-0 flex md:w-28 items-center"
+      >
+        {resolvedTheme === "dark" ? (
+          <IconSun size={25} />
+        ) : (
+          <IconMoon size={25} />
+        )}
+        <span className="text-sm max-md:hidden">
+          {resolvedTheme === "dark" ? "Light Mode" : "Dark Mode"}
+        </span>
+      </button>
+    );
 };
 
 export default ThemeSwitch;
