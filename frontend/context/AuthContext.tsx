@@ -24,7 +24,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       const response = await fetch("/api/auth/check");
       if (response.ok) {
         const userData: User = await response.json();
-        console.log(userData)
         setUser(userData);
         setAuthToken(userData.token);
       }

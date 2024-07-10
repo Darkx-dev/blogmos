@@ -28,7 +28,7 @@ const UserMenu = () => {
         classNames={{
           base: "before:bg-default-200", // change arrow background
           content:
-            "p-0 border-small border-divider bg-black rounded-xl dark:shadow-[#ffffff1b] shadow-md",
+            "p-0 border-small border-divider",
         }}
       >
         <DropdownTrigger>

@@ -16,7 +16,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await api.post("/auth/login", { username, password });
-      login({ token: response.data.token, username });
+      const data = response.data
+      login(data);
       router.push("/");
     } catch (err) {
       setError("Invalid credentials");

@@ -65,19 +65,14 @@ router.post("/login", async (req, res) => {
         userId: user._id,
         username: user.username,
       },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1h",
-      }
+      process.env.JWT_SECRET
     );
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60, // 1 hour
-    });
+    // res.cookie("token", token);
     res.json({
       username: user.username,
       profilePicture: user.profilePicture,
       userId: user._id,
+      token,
     });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error: error.message });
