@@ -29,3 +29,30 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
+
+#content-viewer {
+  border-top: 1px solid;
+  padding-top: 1rem;
+}
+
+#content-viewer h1 {
+  font-size: large;
+}
+
+#content-viewer h2 {
+  font-size: medium;
+}
+
+#content-viewer h3 {
+  font-size:small;
+}
+
+#content-viewer img {
+  margin: 1rem 0;
+  border-radius: 10px;
+}
+
+
+
+
+

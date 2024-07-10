@@ -16,6 +16,11 @@ const postSchema = new mongoose.Schema({
     required: true,
     trim: false
   },
+  coverImage: {
+    type: String,
+    trim: true,
+    default: "default-cover.png",
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",

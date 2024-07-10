@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
+const { extractFirstImageSrc } = require("../utils/extractor");
 
 // Create a new post
 router.post("/", async (req, res) => {
@@ -12,10 +13,12 @@ router.post("/", async (req, res) => {
   try {
     // Split the tags string into an array if provided, otherwise set an empty array
     const tagsArray = tags ? tags.split(",").map((tag) => tag.trim()) : [];
+    const extractedSrc = extractFirstImageSrc(content);
 
     const post = new Post({
       title,
       content,
+      coverImage: extractedSrc,
       description,
       author: authorId,
       tags: tagsArray,
@@ -33,7 +36,9 @@ router.post("/", async (req, res) => {
 // Get all posts
 router.get("/", async (req, res) => {
   try {
-    const posts = await Post.find().populate("author", "username");
+    const posts = await Post.find()
+      .populate("author", "username")
+      .select("-content");
     res.status(200).json(posts);
   } catch (err) {
     res.status(500).json({ message: "Error fetching posts", error: err });

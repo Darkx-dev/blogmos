@@ -16,7 +16,7 @@ const UserMenu = () => {
   if (!user)
     return (
       <div className="space-x-5 max-md:space-x-2 flex items-center">
-        <Link href="/register">
+        <Link href="/login">
           <button
             className="align-middle select-none font-medium  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 max-md:py-2 max-md:px-4 px-6 border-2 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-full"
             type="button"
@@ -24,12 +24,14 @@ const UserMenu = () => {
             Login
           </button>
         </Link>
-        <button
-          className="align-middle select-none font-medium  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 max-md:py-2 max-md:px-4 bg-gradient-to-tr from-blue-900 to-cyan-800 shadow-md dark:shadow-gray-900/10 hover:shadow-lg text-white hover:shadow-gray-900/20 active:opacity-[0.85] rounded-full"
-          type="button"
-        >
-          Register
-        </button>
+        <Link href='/register'>
+          <button
+            className="align-middle select-none font-medium  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 max-md:py-2 max-md:px-4 bg-gradient-to-tr from-blue-900 to-cyan-800 shadow-md dark:shadow-gray-900/10 hover:shadow-lg text-white hover:shadow-gray-900/20 active:opacity-[0.85] rounded-full"
+            type="button"
+          >
+            Register
+          </button>
+        </Link>
         <ThemeSwitch />
       </div>
     );

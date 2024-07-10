@@ -8,7 +8,7 @@ import moment from "moment";
 const Card = ({
   title,
   description,
-  imgSrc = "https://stimg.cardekho.com/images/carexteriorimages/930x620/Lamborghini/Huracan-EVO/10643/1690010999692/front-left-side-47.jpg",
+  imgSrc,
   author,
   authorId,
   postId,
@@ -28,19 +28,25 @@ const Card = ({
       alert("Link copied to clipboard!");
     }
   };
-  if (!imgSrc || !title) return <Skeleton />;
+  if (!title) return <Skeleton />;
   return (
-    <div className="flex w-full flex-col font-mono sm:flex-row sm:max-w-2xl max-w-xs mx-auto overflow-hidden bg-gray-700/10 rounded-lg shadow-lg dark:bg-gray-800 p-2">
-      <div className="p-2 sm:w-1/2">
-        <Image
-          className="rounded object-cover w-full sm:h-80 h-60"
-          src="https://i.pinimg.com/564x/41/c7/52/41c75274ffa14f3222691c0cbe3c1904.jpg"
-          alt="Article"
-          sizes="200"
-          width={20}
-          height={20}
-        />
-      </div>
+    <div className="flex w-full flex-col items-center font-mono sm:flex-row sm:max-w-2xl max-w-xs mx-auto overflow-hidden bg-gray-700/10 rounded-lg shadow-lg dark:bg-gray-800 p-2">
+      {imgSrc ? (
+        <div className="p-2 sm:w-1/2 h-full">
+          <Image
+            className="rounded object-cover w-full h-full"
+            src={imgSrc === "default-cover.png" ? "/default-cover.png" : imgSrc}
+            alt="Article"
+            sizes="200"
+            width={20}
+            height={20}
+          />
+        </div>
+      ) : (
+        <div className="p-2 sm:w-1/2">
+          <div className="sm:h-80 h-60 w-full bg-gray-500/20 rounded-lg animate-pulse "></div>
+        </div>
+      )}
       <div className="sm:p-4 p-2 sm:w-1/2 flex flex-col justify-between">
         <div>
           <Link

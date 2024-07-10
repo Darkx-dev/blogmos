@@ -3,6 +3,10 @@ import { useAuth } from "@/context/AuthContext";
 import api from "@/utils/api";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { extractFirstImageSrc } from "@/utils/html";
+import DOMPurify from "dompurify";
 
 const CreatePost = () => {
   const router = useRouter();
@@ -12,17 +16,41 @@ const CreatePost = () => {
   const [tags, setTags] = useState("");
   const [error, setError] = useState("");
   const { user } = useAuth();
+  const modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { header: [3, 4, false] }], // Headings
+      ["bold", "italic", "underline"], // Basic formatting
+      [{ list: "ordered" }, { list: "bullet" }], // Lists
+      ["blockquote"], // Blockquote
+      ["link", "image"], // Links and images
+      ["clean"], // Remove formatting
+    ],
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "list",
+    "bullet",
+    "blockquote",
+    "link",
+    "image",
+  ];
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log(user)
     if (!user) return setError("Please login first");
     try {
+      const coverImage = extractFirstImageSrc(content);
+      const sanitizedContent = DOMPurify.sanitize(content);
       const response = await api.post("/posts", {
         title,
         description,
-        content,
+        content: sanitizedContent,
         authorId: user.userId,
         tags,
+        coverImage,
       });
       const data = response.data;
       router.push(`/posts/${data._id}`);
@@ -68,7 +96,7 @@ const CreatePost = () => {
           <p className="mt-2 text-sm text-red-600">{error}</p>
         </div>
 
-        <div>
+        {/* <div>
           <label htmlFor="content" className="block text-sm font-medium ">
             Content
           </label>
@@ -80,7 +108,15 @@ const CreatePost = () => {
             className="mt-1 block w-full rounded-md p-2 border-gray-300 shadow-md outline-none bg-zinc-500/10 focus:border-indigo-500 focus:ring-indigo-500"
           ></textarea>
           <p className="mt-2 text-sm text-red-600">{error}</p>
-        </div>
+        </div> */}
+        <ReactQuill
+          theme="snow"
+          value={content}
+          onChange={setContent}
+          modules={modules}
+          formats={formats}
+          className="min-h-[100px]"
+        />
 
         <div>
           <label htmlFor="tags" className="block text-sm font-medium ">
