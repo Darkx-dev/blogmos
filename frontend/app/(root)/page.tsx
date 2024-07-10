@@ -5,8 +5,8 @@ import { postTypes } from "@/types/models";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 
 const Home = async () => {
-  const posts = await (await api.get("/posts")).data;
-
+  const response = await api.get("/posts");
+  const posts = response.data;
   return (
     <div className="px-4 md:px-32 font-mono">
       <section id="new-posts">
