@@ -7,11 +7,10 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 const Home = async () => {
   const posts = await (await api.get("/posts")).data;
 
-  return (
+if (posts) return (
     <div className="px-4 md:px-32 font-mono">
       <section id="new-posts">
         <h1>New posts</h1>
-        {posts && (
           <BentoGrid className="max-w-7xl mx-auto md:grid-cols-7">
             {posts.map((post: postTypes, _: number) => {
               return (
@@ -30,7 +29,6 @@ const Home = async () => {
               );
             })}
           </BentoGrid>
-        )}
       </section>
     </div>
   );
