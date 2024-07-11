@@ -5,12 +5,25 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import('react-quill'), {
-  ssr: false,
-  loading: () => <p>Loading...</p>,
-})
 import { extractFirstImageSrc } from "@/utils/html";
 import DOMPurify from "dompurify";
+// Using ES6 import syntax
+import hljs from "highlight.js/lib/core";
+import javascript from "highlight.js/lib/languages/javascript";
+import python from "highlight.js/lib/languages/python";
+
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("python", python);
+
+const ReactQuill = dynamic(
+  () => {
+    return import("react-quill");
+  },
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  }
+);
 
 const CreatePost = () => {
   const router = useRouter();
@@ -21,13 +34,16 @@ const CreatePost = () => {
   const [error, setError] = useState("");
   const { user } = useAuth();
   const modules = {
+    syntax: false,
     toolbar: [
-      [{ header: "1" }, { header: "2" }, { header: [3, 4, false] }], // Headings
-      ["bold", "italic", "underline"], // Basic formatting
-      [{ list: "ordered" }, { list: "bullet" }], // Lists
-      ["blockquote"], // Blockquote
-      ["link", "image"], // Links and images
-      ["clean"], // Remove formatting
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike"],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ script: "sub" }, { script: "super" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      ["link", "image"],
+      ["clean"],
     ],
   };
 
@@ -36,12 +52,17 @@ const CreatePost = () => {
     "bold",
     "italic",
     "underline",
+    "strike",
+    "blockquote",
+    "code-block",
     "list",
     "bullet",
-    "blockquote",
+    "script",
+    "indent",
     "link",
     "image",
   ];
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return setError("Please login first");

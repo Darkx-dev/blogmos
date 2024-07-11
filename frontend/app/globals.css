@@ -1,7 +1,8 @@
+@import url("./code-block-styles.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 /* Hide scrollbar for Webkit browsers */
 ::-webkit-scrollbar {
@@ -10,49 +11,66 @@
 
 /* For the entire document */
 body {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* Apply to a specific element */
 .hide-scrollbar {
-  overflow: hidden;  /* Hides both scrollbars */
+  overflow: hidden; /* Hides both scrollbars */
 }
 
 /* Or, if you want to keep functionality */
 .hide-scrollbar {
-  overflow: auto;  /* Enables scrolling without scrollbar */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  overflow: auto; /* Enables scrolling without scrollbar */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
+  display: none; /* Safari and Chrome */
 }
 
 #content-viewer {
-  border-top: 1px solid;
-  padding-top: 1rem;
+  background-color: transparent !important;
 }
 
+/* Reset heading font sizes to their default values */
 #content-viewer h1 {
-  font-size: large;
+  font-size: 2em; /* Default browser size for h1 */
+  font-weight: 500; /* Default browser weight for h1 */
 }
 
 #content-viewer h2 {
-  font-size: medium;
+  font-size: 1.5em; /* Default browser size for h2 */
+  font-weight: 500; /* Default browser weight for h2 */
 }
 
 #content-viewer h3 {
-  font-size:small;
+  font-size: 1.17em; /* Default browser size for h3 */
+  font-weight: 500; /* Default browser weight for h3 */
 }
 
+#content-viewer h4 {
+  font-size: 1em; /* Default browser size for h4 */
+  font-weight: 500; /* Default browser weight for h4 */
+}
+
+#content-viewer h5 {
+  font-size: 0.83em; /* Default browser size for h5 */
+  font-weight: 500; /* Default browser weight for h5 */
+}
+
+#content-viewer h6 {
+  font-size: 0.67em; /* Default browser size for h6 */
+  font-weight: 500; /* Default browser weight for h6 */
+}
+
+#conten-viewer {
+  display: flex;
+}
 #content-viewer img {
-  margin: 1rem 0;
+  margin: 1rem auto;
   border-radius: 10px;
+  height: 50vh;
 }
-
-
-
-
-

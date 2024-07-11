@@ -35,7 +35,7 @@ const Card = ({
         <div className="p-2 sm:w-1/2 h-full">
           <Image
             className="rounded object-cover w-full h-full"
-            src={imgSrc === "default-cover.png" ? "/default-cover.png" : imgSrc}
+            src={`${imgSrc || '/default-cover.png' }`}
             alt="Article"
             sizes="200"
             width={20}

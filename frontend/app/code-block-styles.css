@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
+
+.code-block-wrapper {
+    position: relative;
+    margin: 1em 0;
+  }
+  
+  .copy-button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    padding: 0.5em;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+  }
+  
+  .copy-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .hljs.dark .copy-button {
+    background-color: #2d3748;
+    color: #e2e8f0;
+  }
+  
+  .hljs.dark .copy-button:hover {
+    background-color: #4a5568;
+  }
+
+/* Shared styles for both light and dark themes */
+pre.ql-syntax {
+  height: fit-content;
+  margin: 1.5em 0;
+  padding: 1em;
+  border-radius: 8px;
+  font-family: "Fira Code", "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono",
+    monospace;
+  font-size: 0.9em;
+  line-height: 1.6;
+  overflow-x: auto;
+  border: 1px solid;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Light theme styles */
+.hljs.light *:not(pre) {
+  color: #000000c8;
+}
+
+.hljs.light pre.ql-syntax {
+  background-color: #f8fafc;
+  color: #334155;
+  border-color: #e2e8f0;
+}
+
+.hljs.light .hljs-comment,
+.hljs.light .hljs-quote {
+  color: #64748b;
+  font-style: italic;
+}
+
+.hljs.light .hljs-keyword,
+.hljs.light .hljs-selector-tag,
+.hljs.light .hljs-subst {
+  color: #6366f1;
+  font-weight: bold;
+}
+
+.hljs.light .hljs-number,
+.hljs.light .hljs-literal,
+.hljs.light .hljs-variable,
+.hljs.light .hljs-template-variable,
+.hljs.light .hljs-tag .hljs-attr {
+  color: #0891b2;
+}
+
+.hljs.light .hljs-string,
+.hljs.light .hljs-doctag {
+  color: #059669;
+}
+
+.hljs.light .hljs-title,
+.hljs.light .hljs-section,
+.hljs.light .hljs-selector-id {
+  color: #be123c;
+  font-weight: bold;
+}
+
+.hljs.light .hljs-type,
+.hljs.light .hljs-class .hljs-title {
+  color: #ea580c;
+}
+
+/* Dark theme styles */
+.hljs.dark pre.ql-syntax {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-color: #475569;
+}
+
+.hljs.dark .hljs-comment,
+.hljs.dark .hljs-quote {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.hljs.dark .hljs-keyword,
+.hljs.dark .hljs-selector-tag,
+.hljs.dark .hljs-subst {
+  color: #818cf8;
+  font-weight: bold;
+}
+
+.hljs.dark .hljs-number,
+.hljs.dark .hljs-literal,
+.hljs.dark .hljs-variable,
+.hljs.dark .hljs-template-variable,
+.hljs.dark .hljs-tag .hljs-attr {
+  color: #22d3ee;
+}
+
+.hljs.dark .hljs-string,
+.hljs.dark .hljs-doctag {
+  color: #4ade80;
+}
+
+.hljs.dark .hljs-title,
+.hljs.dark .hljs-section,
+.hljs.dark .hljs-selector-id {
+  color: #fb7185;
+  font-weight: bold;
+}
+
+.hljs.dark .hljs-type,
+.hljs.dark .hljs-class .hljs-title {
+  color: #fb923c;
+}
+
+/* Scrollbar styles */
+pre.ql-syntax::-webkit-scrollbar {
+  height: 8px;
+  background-color: #f1f1f1;
+}
+
+pre.ql-syntax::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.hljs.dark pre.ql-syntax::-webkit-scrollbar {
+  background-color: #2d3748;
+}
+
+.hljs.dark pre.ql-syntax::-webkit-scrollbar-thumb {
+  background-color: #4a5568;
+}

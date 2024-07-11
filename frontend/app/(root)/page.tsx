@@ -11,7 +11,7 @@ const Home = async () => {
   ).catch((err) => console.error(err));
 
   const posts = await response?.json();
-
+  
   return (
     <div className="px-4 md:px-32 min-h-screen pb-10">
       <section id="new-posts" className="mt-5">
