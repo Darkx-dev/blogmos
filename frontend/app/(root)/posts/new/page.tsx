@@ -3,8 +3,12 @@ import { useAuth } from "@/context/AuthContext";
 import api from "@/utils/api";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+})
 import { extractFirstImageSrc } from "@/utils/html";
 import DOMPurify from "dompurify";
 
@@ -42,7 +46,6 @@ const CreatePost = () => {
     e.preventDefault();
     if (!user) return setError("Please login first");
     try {
-      const coverImage = extractFirstImageSrc(content);
       const sanitizedContent = DOMPurify.sanitize(content);
       const response = await api.post("/posts", {
         title,
@@ -50,7 +53,7 @@ const CreatePost = () => {
         content: sanitizedContent,
         authorId: user.userId,
         tags,
-        coverImage,
+        coverImage: extractFirstImageSrc(sanitizedContent),
       });
       const data = response.data;
       router.push(`/posts/${data._id}`);
@@ -109,6 +112,7 @@ const CreatePost = () => {
           ></textarea>
           <p className="mt-2 text-sm text-red-600">{error}</p>
         </div> */}
+
         <ReactQuill
           theme="snow"
           value={content}
