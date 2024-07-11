@@ -17,12 +17,13 @@ const Home = async () => {
       <section id="new-posts" className="mt-5">
         <h1 className="border-l-4 border-pink-500 pl-1">Recent posts</h1>
         <hr className="my-2" />
-        <div className="grid justify-center sm:grid-cols-2 gap-5 auto-cols-full auto-rows-[25rem] ">
+        <div className="grid w-full place-content-evenly md:auto-rows-[18rem] grid-cols-1 md:grid-cols-5 gap-4 max-w-7xl mx-auto auto-rows-[28rem] ">
           {posts &&
             posts.map((post: postTypes, _: number) => {
               return (
                 <Card
                   key={_}
+                  idx={_}
                   title={post.title!}
                   description={post.description!}
                   imgSrc={post.coverImage}

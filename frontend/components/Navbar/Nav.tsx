@@ -5,7 +5,7 @@ import ThemeSwitch from "./ThemeSwitch";
 import Link from "next/link";
 import MobileNavigator from "./MobileNavigator";
 import React, { useState } from "react";
-import { IconCross, IconCurrencyXrp, IconMenu3 } from "@tabler/icons-react";
+import { IconX, IconMenu3 } from "@tabler/icons-react";
 
 const Nav = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,8 +24,8 @@ const Nav = () => {
         <NavbarContent className="w-full justify-between">
           <div className="flex justify-between items-center w-full">
             <div className="navbar-start flex items-center gap-2">
-              <button onClick={handleSideBar} className="lg:hidden z-50">
-                {isSidebarOpen ? <IconCurrencyXrp /> : <IconMenu3 />}
+              <button onClick={handleSideBar} className="lg:hidden z-50 active:animate-pulse">
+                {isSidebarOpen ? <IconX /> : <IconMenu3 />}
               </button>
               <div className="flex-1">
                 <a className="btn btn-ghost text-xl font-bold" href="/">

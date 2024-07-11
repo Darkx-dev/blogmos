@@ -78,7 +78,7 @@ input {
 }
 /* No Scrolling  */
 body.no-scroll {
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 div.quill {
@@ -221,15 +221,17 @@ html.dark .pattern-nav {
   background-color: #ffffff;
   background-image: radial-gradient(rgba(0, 0, 0, 0.171) 2px, transparent 0);
   background-size: 30px 30px;
-  background-position: -5px -5px
+  background-position: -5px -5px;
 }
 html.dark .pattern {
   width: 100%;
   height: 100%;
   /* Add your background pattern here */
   background-color: #000000;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.171) 2px,
+    transparent 0
+  );
   background-size: 30px 30px;
-  background-position: -5px -5px
+  background-position: -5px -5px;
 }
-

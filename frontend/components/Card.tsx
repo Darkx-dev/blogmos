@@ -15,6 +15,7 @@ const Card = ({
   authorId,
   postId,
   createdAt,
+  idx,
 }: {
   title: string;
   description: string;
@@ -23,6 +24,7 @@ const Card = ({
   authorId?: string;
   postId?: string;
   createdAt?: Date;
+  idx: number;
 }) => {
   const handleShare = () => {
     if (global.navigator) {
@@ -32,10 +34,14 @@ const Card = ({
   };
   if (!title) return <Skeleton />;
   return (
-    <div className="w-full relative sm:flex-row sm:max-w-2xl group max-w-xs mx-auto overflow-hidden bg-gray-700/10 rounded-lg shadow-lg dark:bg-gray-800">
+    <div
+      className={`${
+        (idx % 1.5) !== 0 ? "md:col-span-3" : "md:col-span-2"
+      } w-full ml-auto relative sm:flex-row sm:max-w-2xl group max-w-xs mx-auto overflow-hidden bg-gray-700/10 rounded-lg shadow-lg dark:bg-gray-800`}
+    >
       <div className="h-full bg-red-500">
         <Image
-          className="rounded object-cover h-full w-full group-hover:scale-105 transition-transform"
+          className="rounded object-cover h-full w-full group-hover:scale-105 transition-transform object-center"
           src={`${imgSrc || "/default-cover.png"}`}
           onClick={() => console.log(imgSrc)}
           alt="Article"

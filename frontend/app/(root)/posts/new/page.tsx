@@ -5,15 +5,11 @@ import api from "@/utils/api";
 import { useRouter } from "next/navigation";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-import { extractFirstImageSrc } from "@/utils/html";
 import DOMPurify from "dompurify";
 import hljs from "highlight.js";
 import "highlight.js/styles/tokyo-night-dark.min.css";
 import "highlight.js/styles/tokyo-night-dark.min.css";
-
-hljs.configure({
-  languages: ["javascript", "typescript", "css", "html", "markdown"],
-});
+import { extractFirstImageSrc, resizeImages } from "@/utils/html";
 
 const ReactQuill = dynamic(
   () => {
@@ -184,9 +180,9 @@ const CreatePost = () => {
                 fill="none"
                 height="24"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 viewBox="0 0 24 24"
                 width="24"
                 xmlns="http://www.w3.org/2000/svg"
