@@ -4,6 +4,8 @@ import Link from "next/link";
 import React, { useState } from "react";
 // import { postTypes } from "@/types/models";
 import moment from "moment";
+import { trimString } from "@/utils/methods";
+import ShareButton from "./ShareButton";
 
 const Card = ({
   title,
@@ -30,32 +32,28 @@ const Card = ({
   };
   if (!title) return <Skeleton />;
   return (
-    <div className="grid grid-rows-2 relative sm:flex-row sm:max-w-2xl max-w-xs mx-auto overflow-hidden bg-gray-700/10 rounded-lg shadow-lg dark:bg-gray-800">
-      {imgSrc ? (
-        // <div className="p-2 sm:w-1/2 /">
+    <div className="w-full relative sm:flex-row sm:max-w-2xl group max-w-xs mx-auto overflow-hidden bg-gray-700/10 rounded-lg shadow-lg dark:bg-gray-800">
+      <div className="h-full bg-red-500">
         <Image
-          className="rounded object-cover w-full"
+          className="rounded object-cover h-full w-full group-hover:scale-105 transition-transform"
           src={`${imgSrc || "/default-cover.png"}`}
+          onClick={() => console.log(imgSrc)}
           alt="Article"
           sizes="200"
           width={20}
           height={20}
         />
-      ) : (
-        <div className="p-2 sm:w-1/2">
-          <div className="sm:h-80 h-60 w-full bg-gray-500/20 rounded-lg animate-pulse "></div>
-        </div>
-      )}
-      <div className="sm:p-4 p-2 sm:w-full flex text-white flex-col absolute bottom-0 items-center bg-gray-800/30 justify-between h-1/2 w-full backdrop-blur-md rounded-t-lg">
+      </div>
+      <div className="sm:p-4 p-2 sm:w-full flex text-white flex-col absolute bottom-0 items-center bg-gray-800/30 justify-between min-h-[40%] w-full backdrop-blur-md rounded-t-lg">
         <div>
           <Link
             href={`/posts/${postId}`}
-            className="block sm:mt-2 text-2xl font-semibold capitalize hover:text-gray-600 hover:underline"
+            className="block sm:mt-2 text-center text-2xl font-semibold capitalize hover:text-gray-600 hover:underline"
           >
             {title}
           </Link>
-          <p className="mt-2 text-sm text-gray-400">
-            {description || "No description"}
+          <p className="mt-2 text-sm text-gray-400 text-preety text-center">
+            {trimString(description, 50) || "No description"}
           </p>
         </div>
 
@@ -80,28 +78,11 @@ const Card = ({
             <span className="mx-1 text-xs">
               {moment(createdAt).format("MMM DD, YYYY")}
             </span>
-            <span
-              className="hover:cursor-pointer relative text-xs"
-              onClick={handleShare}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="17"
-                height="17"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#f2f2f2"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-              </svg>
-            </span>
+            <ShareButton
+              url={`posts/${postId}`}
+              title={title}
+              text={description}
+            />
           </div>
         </div>
       </div>

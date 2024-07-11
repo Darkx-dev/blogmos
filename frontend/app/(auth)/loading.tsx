@@ -28,37 +28,37 @@ const loading = () => {
         <div className="relative -mb-px h-px w-full bg-gradient-to-r from-transparent via-sky-300 to-transparent"></div>
         <div className="mx-5 border dark:border-b-white/50 dark:border-t-white/50 border-b-white/20 sm:border-t-white/20 shadow-[20px_0_20px_20px] shadow-slate-500/20 dark:shadow-white/20 rounded-lg border-white/20 border-l-white/20 border-r-white/20 sm:shadow-sm lg:rounded-xl lg:shadow-none">
           <div className="flex flex-col p-6 animate-pulse">
-            <div className="h-5 bg-gray-200 rounded w-1/3"></div>
-            <div className="mt-2 h-4 bg-gray-200 rounded w-1/2"></div>
+            <div className="h-5 bg-gray-200 rounded py-3 w-1/3"></div>
+            <div className="mt-2 h-4 bg-gray-200 rounded py-3 w-1/2"></div>
           </div>
           <div className="p-6 pt-0">
             <form>
               <div>
                 <div>
-                  <div className="group relative rounded-lg border animate-pulse">
-                    <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                  <div className="group relative rounded-lg border">
+                    <div className="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
                     <input
                       type="text"
                       name="username"
-                      className="block w-full h-6 bg-gray-200 rounded mt-2"
+                      className="block w-full h-6 py-4 bg-gray-200 rounded animate-pulse mt-2"
                     />
                   </div>
                 </div>
               </div>
-              <div className="mt-4 animate-pulse">
+              <div className="mt-4">
                 <div>
-                  <div className="relative rounded-lg border px-3 h-10"></div>
+                  <div className="relative rounded-lg border px-3 h-10 animate-pulse"></div>
                 </div>
               </div>
-              <div className="mt-4 animate-pulse">
+              <div className="mt-4">
                 <div>
-                  <div className="relative rounded-lg border px-3 h-10"></div>
+                  <div className="relative rounded-lg border px-3 h-10 animate-pulse"></div>
                 </div>
               </div>
 
-              <div className="mt-4 flex items-center justify-end gap-x-2 animate-pulse">
-                <div className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 duration-200 bg-gray-200"></div>
-                <div className="font-semibold transition duration-300 inline-flex items-center justify-center rounded-md text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gray-200 text-black h-10 px-4 py-2"></div>
+              <div className="mt-4 flex items-center justify-end gap-x-2 ">
+                <div className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 duration-200 bg-gray-200 animate-pulse"></div>
+                <div className="font-semibold transition duration-300 inline-flex items-center justify-center rounded-md text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gray-200 text-black h-10 px-4 py-2 animate-pulse"></div>
               </div>
             </form>
           </div>

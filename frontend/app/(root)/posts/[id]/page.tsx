@@ -20,13 +20,6 @@ const Post = async ({ params }: { params: { id: string } }) => {
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4 capitalize">{post.title}</h1>
           <div className="flex flex-col justify-center mb-4">
-            {/* <Image
-              className="h-10 w-10 rounded-full mr-3"
-              src=""
-              alt="Author"
-              height="40"
-              width="40"
-            /> */}
             <div className="">
               <Link
                 href={`/profile/${post.author._id}`}

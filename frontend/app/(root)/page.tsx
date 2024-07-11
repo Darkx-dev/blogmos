@@ -13,11 +13,11 @@ const Home = async () => {
   const posts = await response?.json();
   
   return (
-    <div className="px-4 md:px-32 min-h-screen pb-10">
+    <div className="px-4 max-sm:px-2 md:px-32 min-h-screen pb-10">
       <section id="new-posts" className="mt-5">
         <h1 className="border-l-4 border-pink-500 pl-1">Recent posts</h1>
         <hr className="my-2" />
-        <div className="grid justify-center md:grid-cols-2 gap-5 auto-cols-[100%] auto-rows-[25rem] ">
+        <div className="grid justify-center sm:grid-cols-2 gap-5 auto-cols-full auto-rows-[25rem] ">
           {posts &&
             posts.map((post: postTypes, _: number) => {
               return (

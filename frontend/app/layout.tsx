@@ -1,8 +1,9 @@
-import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
 import Theme from "@/providers/Theme";
 import { Poppins } from "next/font/google";
 import React from "react";
+
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className="bg-[#0000001a]">
-      <body className={`dark:bg-base-300 ${poppins.className}`}>
+      <body className={`dark:bg-base-300 ${poppins.className} pattern min-h-screen`}>
         <Theme>
           <AuthProvider>{children}</AuthProvider>
         </Theme>
