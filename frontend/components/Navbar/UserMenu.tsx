@@ -1,16 +1,8 @@
 "use client";
 import React from "react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
-  DropdownItem,
-  User,
-} from "@nextui-org/react";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import ThemeSwitch from "./ThemeSwitch";
+import Image from "next/image";
 const UserMenu = () => {
   const { user, logout } = useAuth();
   if (!user)
@@ -18,13 +10,13 @@ const UserMenu = () => {
       <div className="space-x-5 max-md:space-x-2 flex items-center">
         <Link href="/login">
           <button
-            className="align-middle select-none font-medium  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 max-md:py-2 max-md:px-4 px-6 border-2 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-full"
+            className="align-middle select-none font-medium  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 max-md:py-2 max-md:px-4 px-6 border-2 border-black dark:border-white hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-full"
             type="button"
           >
             Login
           </button>
         </Link>
-        <Link href='/register'>
+        <Link href="/register">
           <button
             className="align-middle select-none font-medium  text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 max-md:py-2 max-md:px-4 bg-gradient-to-tr from-blue-900 to-cyan-800 shadow-md dark:shadow-gray-900/10 hover:shadow-lg text-white hover:shadow-gray-900/20 active:opacity-[0.85] rounded-full"
             type="button"
@@ -32,75 +24,46 @@ const UserMenu = () => {
             Register
           </button>
         </Link>
-        <ThemeSwitch />
       </div>
     );
   if (user)
     return (
-      <Dropdown
-        showArrow
-        radius="sm"
-        classNames={{
-          base: "before:bg-default-200", // change arrow background
-          content: "p-0 border-small border-divider",
-        }}
-      >
-        <DropdownTrigger>
-          <User
-            as="button"
-            avatarProps={{
-              isBordered: true,
-              src: "",
-            }}
-            className="transition-transform"
-            // description="@tonyreichert"
-            name={user.username}
-          />
-        </DropdownTrigger>
-        <DropdownMenu
-          aria-label="Custom item styles"
-          disabledKeys={["profile"]}
-          className="p-3 dark:bg-zinc-800/95 bg-zinc-600 rounded-lg text-white"
-          itemClasses={{
-            base: [
-              "rounded-md",
-              "text-default-500",
-              "transition-opacity",
-              "data-[hover=true]:text-foreground",
-              "data-[hover=true]:bg-default-100",
-              "dark:data-[hover=true]:bg-default-50",
-              "data-[selectable=true]:focus:bg-default-50",
-              "data-[pressed=true]:opacity-70",
-              "data-[focus-visible=true]:ring-default-500",
-            ],
-          }}
+      <div className="dropdown dropdown-end">
+        <label
+          tabIndex={0}
+          role="button"
+          htmlFor="dropdown-toggle"
+          className="btn btn-ghost btn-circle avatar"
         >
-          <DropdownSection aria-label="Profile & Actions" showDivider>
-            {/* <DropdownItem key="dashboard">Dashboard</DropdownItem> */}
-            {/* <DropdownItem key="settings">Settings</DropdownItem> */}
-            <DropdownItem key="new_project" endContent={""}>
-              <Link href={"/posts/new"}>New Post</Link>
-            </DropdownItem>
-            <DropdownItem key="home" endContent={""}>
-              <Link href={"/"}>Home</Link>
-            </DropdownItem>
-          </DropdownSection>
-          <DropdownSection aria-label="Help & Feedback">
-            {/* <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem> */}
-            <DropdownItem
-              href="/api/auth/logout"
-              onClick={logout}
-              key="logout"
-              className="text-red-500"
-            >
-              Log Out
-            </DropdownItem>
-            <DropdownItem key="theme-switch">
-              <ThemeSwitch />
-            </DropdownItem>
-          </DropdownSection>
-        </DropdownMenu>
-      </Dropdown>
+          <div className="w-fit border-2 rounded-full overflow-hidden">
+            <Image
+              alt="Tailwind CSS Navbar component"
+              src={
+                "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXh1enhwNm1vZGxjMGljZ2dlNjhtd2tnMmE5MHRmZTU2OWNrcTE1aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tHIRLHtNwxpjIFqPdV/giphy.webp"
+              }
+              width={30}
+              height={30}
+            />
+          </div>
+        </label>
+        <input type="checkbox" className="peer" id="dropdown-toggle" hidden />
+        <ul
+          tabIndex={0}
+          className="menu menu-sm dropdown-content translate-y-2 right-2 bg-base-100 hidden peer-checked:flex flex-col gap-2 absolute bg-black/50 text-white rounded-lg rounded-box z-[1] mt-3 w-52 p-3 shadow"
+        >
+          <li>
+            <a className="justify-between">Profile</a>
+          </li>
+          <li>
+            <a>Settings</a>
+          </li>
+          <li>
+            <button onClick={logout} className="text-red-500">
+              Logout
+            </button>
+          </li>
+        </ul>
+      </div>
     );
 };
 

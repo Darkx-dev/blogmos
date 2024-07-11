@@ -42,15 +42,11 @@ const Content = ({ content }: { content: string }) => {
     }
   };
 
-  return (
-    <div
-      id="content-viewer"
-      ref={contentRef}
-      className={`hljs ${mounted && theme}`}
-    >
-      {parse(sanitizedHtml, { replace: wrapPreBlocks })}
-    </div>
-  );
+    return (
+      <div id="content-viewer" ref={contentRef} className={`hljs ${mounted && theme}`}>
+        {parse(sanitizedHtml, { replace: wrapPreBlocks })}
+      </div>
+    );
 };
 
 export default Content;

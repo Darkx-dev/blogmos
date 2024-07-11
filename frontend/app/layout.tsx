@@ -1,7 +1,13 @@
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import "./globals.css";
 import Theme from "@/providers/Theme";
+import { Poppins } from "next/font/google";
 import React from "react";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export default function RootLayout({
   children,
@@ -9,12 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="dark:bg-gray-900">
+    <html lang="en" suppressHydrationWarning className="bg-[#0000001a]">
+      <body className={`dark:bg-base-300 ${poppins.className}`}>
         <Theme>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
+          <AuthProvider>{children}</AuthProvider>
         </Theme>
       </body>
     </html>

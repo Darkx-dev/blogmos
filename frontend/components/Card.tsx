@@ -30,24 +30,23 @@ const Card = ({
   };
   if (!title) return <Skeleton />;
   return (
-    <div className="flex w-full flex-col items-center font-mono sm:flex-row sm:max-w-2xl max-w-xs mx-auto overflow-hidden bg-gray-700/10 rounded-lg shadow-lg dark:bg-gray-800 p-2">
+    <div className="grid grid-rows-2 relative sm:flex-row sm:max-w-2xl max-w-xs mx-auto overflow-hidden bg-gray-700/10 rounded-lg shadow-lg dark:bg-gray-800">
       {imgSrc ? (
-        <div className="p-2 sm:w-1/2 h-full">
-          <Image
-            className="rounded object-cover w-full h-full"
-            src={`${imgSrc || '/default-cover.png' }`}
-            alt="Article"
-            sizes="200"
-            width={20}
-            height={20}
-          />
-        </div>
+        // <div className="p-2 sm:w-1/2 /">
+        <Image
+          className="rounded object-cover w-full"
+          src={`${imgSrc || "/default-cover.png"}`}
+          alt="Article"
+          sizes="200"
+          width={20}
+          height={20}
+        />
       ) : (
         <div className="p-2 sm:w-1/2">
           <div className="sm:h-80 h-60 w-full bg-gray-500/20 rounded-lg animate-pulse "></div>
         </div>
       )}
-      <div className="sm:p-4 p-2 sm:w-1/2 flex flex-col justify-between">
+      <div className="sm:p-4 p-2 sm:w-full flex text-white flex-col absolute bottom-0 items-center bg-gray-800/30 justify-between h-1/2 w-full backdrop-blur-md rounded-t-lg">
         <div>
           <Link
             href={`/posts/${postId}`}
@@ -60,8 +59,8 @@ const Card = ({
           </p>
         </div>
 
-        <div className="mt-4">
-          <div className="flex items-center">
+        <div>
+          <div className="flex items-center justify-between gap-2">
             <div className="flex items-center">
               <Image
                 className="object-cover h-10 w-10 rounded-full"
@@ -82,7 +81,7 @@ const Card = ({
               {moment(createdAt).format("MMM DD, YYYY")}
             </span>
             <span
-              className="hover:cursor-pointer relative sm:left-12 text-xs"
+              className="hover:cursor-pointer relative text-xs"
               onClick={handleShare}
             >
               <svg

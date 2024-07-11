@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     if (response.ok) {
       setUser(null);
       setAuthToken(null);
-      router.push("/login");
+      router.push("/");
     }
   };
   return (

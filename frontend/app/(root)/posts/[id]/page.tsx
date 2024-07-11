@@ -18,7 +18,7 @@ const Post = async ({ params }: { params: { id: string } }) => {
     <div className="max-w-7xl mx-auto" suppressHydrationWarning>
       <article className=" shadow-lg rounded-lg overflow-hidden">
         <div className="p-6">
-          <h1 className="text-3xl font-bold mb-4 capitalize font-mono">{post.title}</h1>
+          <h1 className="text-3xl font-bold mb-4 capitalize">{post.title}</h1>
           <div className="flex flex-col justify-center mb-4">
             {/* <Image
               className="h-10 w-10 rounded-full mr-3"
@@ -27,7 +27,7 @@ const Post = async ({ params }: { params: { id: string } }) => {
               height="40"
               width="40"
             /> */}
-            <div className="font-mono">
+            <div className="">
               <Link
                 href={`/profile/${post.author._id}`}
                 className="text-sm font-medium"

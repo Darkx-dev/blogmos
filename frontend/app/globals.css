@@ -70,7 +70,8 @@ body {
   display: flex;
 }
 #content-viewer img {
-  margin: 1rem auto;
+  align-self: center;
   border-radius: 10px;
-  height: 50vh;
+  height: 60vh;
+  object-fit: auto;
 }

@@ -4,10 +4,6 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
-// Todo: Figure out how to use multer memory storage for buffer
-// const storage = multer.memoryStorage()
-// const upload = multer({ storage: storage })
-
 const config = require("../config/config");
 const { connectDB } = require("../utils/db");
 const { errorHandler } = require("../middleware/errorHandler");
@@ -37,5 +33,7 @@ app.use("/api", routes);
 app.use(errorHandler);
 
 connectDB().then(() => {
-  app.listen(config.PORT, () => debug(`Server running on port ${config.PORT}`));
+  app.listen(config.PORT || 3000, () =>
+    debug(`Server running on port ${config.PORT}`)
+  );
 });

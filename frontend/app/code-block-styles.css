@@ -3,6 +3,7 @@
 .code-block-wrapper {
     position: relative;
     margin: 1em 0;
+    width: fit-content
   }
   
   .copy-button {
@@ -34,7 +35,7 @@
 pre.ql-syntax {
   height: fit-content;
   margin: 1.5em 0;
-  padding: 1em;
+  padding: 1em 5em 1em 1em;
   border-radius: 8px;
   font-family: "Fira Code", "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono",
     monospace;
