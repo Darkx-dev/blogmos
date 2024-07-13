@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
       },
       process.env.JWT_SECRET
     );
-    // res.cookie("token", token);
+    res.cookie("token", token);
     res.json({
       username: user.username,
       profilePicture: user.profilePicture,
