@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const postSchema = new mongoose.Schema({
   title: {
@@ -9,12 +10,12 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
     max: 200,
-    trim: true, 
+    trim: true,
   },
   content: {
     type: String,
     required: true,
-    trim: false
+    trim: false,
   },
   coverImage: {
     type: String,
@@ -50,5 +51,7 @@ const postSchema = new mongoose.Schema({
     default: 0,
   }, // Track the number of likes
 });
+
+postSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("post", postSchema);

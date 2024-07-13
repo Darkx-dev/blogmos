@@ -8,8 +8,8 @@ const ShareButton = ({
   text,
 }: {
   url: string;
-  title: string;
-  text: string;
+  title?: string;
+  text?: string;
 }) => {
   const handleShare = async () => {
     try {
@@ -17,7 +17,7 @@ const ShareButton = ({
         global.navigator.share({
           title,
           text, 
-          url: `${window.location}posts/${url}`, 
+          url: `${window.location.origin}/${url}`, 
         });
         console.log("Shared successfully");
       } else {
@@ -31,7 +31,9 @@ const ShareButton = ({
 
   return (
     <button onClick={handleShare}>
+      
       <IconShare fontSize={25}/>
+      
     </button>
   );
 };

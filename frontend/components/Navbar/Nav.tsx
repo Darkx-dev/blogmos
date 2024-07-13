@@ -19,7 +19,7 @@ const Nav = () => {
     <>
       <Navbar
         shouldHideOnScroll
-        className="w-full pattern-nav dark:bg-zinc-500/10 bg-black/60 text-white rounded-b-lg max-sm:*:first:px-2 shadow-md"
+        className="w-full pattern-nave  dark:bg-zinc-500/10 bg-black/60 text-white rounded-b-lg max-sm:*:first:px-2 shadow-md"
       >
         <NavbarContent className="w-full justify-between">
           <div className="flex justify-between items-center w-full">
@@ -37,6 +37,9 @@ const Nav = () => {
               <ul className="menu menu-horizontal px-1 flex items-center gap-2 hover:*:bg-white/10 *:py-2 *:px-4 *:rounded-lg *:cursor-pointer *:transition-colors">
                 <li>
                   <Link href={"/"}>Home</Link>
+                </li>
+                <li>
+                  <Link href={'/blogs'}>Blogs</Link>
                 </li>
               </ul>
             </div>

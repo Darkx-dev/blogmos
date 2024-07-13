@@ -4,9 +4,10 @@ const router = express.Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
 const { extractFirstImageSrc } = require("../utils/extractor");
+const auth = require("../middleware/auth");
 
 // Create a new post
-router.post("/", async (req, res) => {
+router.post("/", auth , async (req, res) => {
   const { title, description, content, authorId, tags } = req.body;
   debug("Creating new post:", req.body);
 
@@ -36,10 +37,42 @@ router.post("/", async (req, res) => {
 // Get all posts
 router.get("/", async (req, res) => {
   try {
-    const posts = await Post.find()
-      .populate("author", "username")
-      .select("-content");
-    res.status(200).json(posts);
+    const {
+      page = 1,
+      limit = 10,
+      sort = "-createdAt",
+      tag,
+      search,
+    } = req.query;
+    const options = {
+      page: parseInt(page, 10),
+      limit: parseInt(limit, 10),
+      sort,
+      populate: { path: "author", select: "username" },
+      select: "-content",
+    };
+
+    let query = {};
+
+    if (tag) {
+      query.tags = tag;
+    }
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    const result = await Post.paginate(query, options);
+
+    res.status(200).json({
+      posts: result.docs,
+      totalPages: result.totalPages,
+      currentPage: result.page,
+      totalPosts: result.totalDocs,
+    });
   } catch (err) {
     res.status(500).json({ message: "Error fetching posts", error: err });
   }
@@ -109,6 +142,36 @@ router.get("/popular", async (req, res) => {
     res
       .status(500)
       .json({ message: "Error fetching popular posts", error: err });
+  }
+});
+
+// Get posts by author ID
+router.get("/author/:authorId", async (req, res) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const options = {
+      page: parseInt(page, 10),
+      limit: parseInt(limit, 10),
+      sort: "-createdAt",
+      populate: { path: "author", select: "username" },
+      select: "-content",
+    };
+
+    const result = await Post.paginate(
+      { author: req.params.authorId },
+      options
+    );
+
+    res.status(200).json({
+      posts: result.docs,
+      totalPages: result.totalPages,
+      currentPage: result.page,
+      totalPosts: result.totalDocs,
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error fetching author's posts", error: err });
   }
 });
 

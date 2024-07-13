@@ -19,7 +19,7 @@ const Login = () => {
       const response = await api.post("/auth/login", { username, password });
       const data = response.data;
       login(data);
-      router.push("/");
+      router.push("/blogs");
     } catch (err) {
       setError("Invalid credentials");
     }

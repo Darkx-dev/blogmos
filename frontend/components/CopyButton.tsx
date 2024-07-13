@@ -13,7 +13,7 @@ const CopyButton = ({ code }: { code: string }) => {
     };
   
     return (
-      <button onClick={copyToClipboard} className="copy-button">
+      <button onClick={copyToClipboard} className="copy-button absolute left-0 botom-0 z-20 w-fit">
         {copied ? 'Copied!' : <IconCopy size={20}/>}
       </button>
     );

@@ -30,7 +30,7 @@ const MobileNavigator = ({
               <Link href="/" onClick={handleSideBar}>
                 Home
               </Link>
-              <Link href="/" onClick={handleSideBar}>
+              <Link href="/blogs" onClick={handleSideBar}>
                 Blogs
               </Link>
               {/* Add more links as needed */}

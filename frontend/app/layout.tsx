@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className="bg-[#0000001a]">
-      <body className={`dark:bg-base-300 ${poppins.className} pattern min-h-screen`}>
+      <body className={`dark:bg-base-300 ${poppins.className} pattern transition-all min-h-screen`}>
         <Theme>
           <AuthProvider>{children}</AuthProvider>
         </Theme>

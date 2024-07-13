@@ -48,7 +48,7 @@ const UserMenu = () => {
         <input type="checkbox" className="peer" id="dropdown-toggle" hidden />
         <ul
           tabIndex={0}
-          className="menu menu-sm min-w-40 dropdown-content translate-y-2 right-2 bg-base-100 hidden peer-checked:flex flex-col gap-2 absolute bg-[#39393a] text-white rounded-lg rounded-b-lg z-[1] mt-3 p-3 shadow"
+          className="menu menu-sm dark:bg-zinc-800/50 bg-black/90 text-white min-w-40 dropdown-content translate-y-2 right-2 bg-base-100 hidden peer-checked:flex flex-col gap-2 absolute rounded-lg rounded-b-lg z-[1] mt-3 p-3 shadow"
         >
           <li className="*:block">
             <span className="text-xs">Welcome</span>
@@ -56,12 +56,15 @@ const UserMenu = () => {
           </li>
           <hr />
           <li>
-            <a className="justify-between" href="#">
+            <Link
+              className="justify-between"
+              href={`/blogs/profile${user.userId}`}
+            >
               Profile
-            </a>
+            </Link>
           </li>
           <li>
-            <Link href="/posts/new">New post</Link>
+            <Link href="/blogs/new">New post</Link>
           </li>
           <li>
             <a>Settings</a>

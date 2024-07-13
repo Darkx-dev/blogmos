@@ -9,7 +9,7 @@ import DOMPurify from "dompurify";
 import hljs from "highlight.js";
 import "highlight.js/styles/tokyo-night-dark.min.css";
 import "highlight.js/styles/tokyo-night-dark.min.css";
-import { extractFirstImageSrc, resizeImages } from "@/utils/html";
+import { extractFirstImageSrc } from "@/utils/html";
 
 const ReactQuill = dynamic(
   () => {
@@ -43,7 +43,7 @@ const CreatePost = () => {
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
   const [error, setError] = useState("");
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const modules = {
     syntax: true,
@@ -89,9 +89,9 @@ const CreatePost = () => {
         coverImage: extractFirstImageSrc(sanitizedContent),
       });
       const data = response.data;
-      router.push(`/posts/${data._id}`);
+      router.push(`/blogs/${data._id}`);
     } catch (err) {
-      setError("Failed to create post. Please try again.");
+      setError("Failed to create post. Please try again or Relogin (Make sure to copy your content");
     }
   };
 

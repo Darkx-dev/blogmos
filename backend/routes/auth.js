@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
       {
         userId: user._id,
         username: user.username,
-        email: user.email
+        email: user.email,
       },
       process.env.JWT_SECRET
     );
@@ -79,6 +79,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Error logging in", error: error.message });
   }
 });
+
 
 // Logout route
 router.get("/logout", (req, res) => {

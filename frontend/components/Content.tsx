@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-// import DOMPurify from "dompurify";
 import { useTheme } from "next-themes";
 import parse, { domToReact } from "html-react-parser";
 import hljs from "highlight.js";
@@ -34,19 +33,25 @@ const Content = ({ content }: { content: string }) => {
       const code = node.children[0].data;
       console.log(domToReact(node.children));
       return (
-        <div className="code-block-wrapper">
-          <CopyButton code={code} />
-          <pre className="ql-syntax">{domToReact(node.children)}</pre>
-        </div>
+        <>
+          <div className="code-block-wrapper overflow-auto">
+            <CopyButton code={code} />
+            <pre className="ql-syntax">{domToReact(node.children)}</pre>
+          </div>
+        </>
       );
     }
   };
 
-    return (
-      <div id="content-viewer" ref={contentRef} className={`hljs ${mounted && theme}`}>
-        {parse(sanitizedHtml, { replace: wrapPreBlocks })}
-      </div>
-    );
+  return (
+    <div
+      id="content-viewer"
+      ref={contentRef}
+      className={`hljs ${mounted && theme} w-full overflow-x-auto`}
+    >
+      {parse(sanitizedHtml, { replace: wrapPreBlocks })}
+    </div>
+  );
 };
 
 export default Content;
