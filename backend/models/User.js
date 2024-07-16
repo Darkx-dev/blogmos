@@ -6,6 +6,18 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  name: {
+    type: String,
+    required: false,
+    maxLength: 80,
+    trim: true,
+  },
+  bio: {
+    type: String,
+    required: true,
+    maxLength: 200,
+    trim: true,
+  },
   email: {
     type: String,
     required: true,
@@ -40,6 +52,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 module.exports = mongoose.model("user", userSchema);

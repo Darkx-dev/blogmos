@@ -14,6 +14,7 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(username, email, password)
     try {
       const response = await api.post("/auth/register", {
         username,
@@ -23,6 +24,7 @@ const Register = () => {
       router.push("/login");
     } catch (err) {
       setError("Username or email already in use");
+      console.log(err)
     }
   };
   return (

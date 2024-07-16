@@ -8,7 +8,7 @@ const Post = async ({ params }: { params: { id: string } }) => {
   "use server";
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/posts/${params.id}`,
-    { next: { tags: ["post"] }, credentials: "include", cache: "no-cache" }
+    { cache: "no-cache" }
   ).catch((err) => console.error(err));
 
   const post = await response?.json();
@@ -16,26 +16,30 @@ const Post = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8" suppressHydrationWarning>
       <article className="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden">
-        {post?.coverImage && (
-          <div className="relative h-64 md:h-96 w-full">
+        <div className="relative w-full">
+          {post.coverImage && (
             <Image
               src={post?.coverImage}
               alt={post?.title}
-              className="transition-transform object-cover duration-300 hover:scale-105"
+              className="transition-transform object-cover w-full h-auto duration-300 hover:scale-105"
               width={0}
               height={0}
-              sizes="150"
+              sizes="200"
               priority
             />
-          </div>
-        )}
+          )}
+        </div>
+
         <div className="p-6 md:p-10">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white capitalize">
             {post?.title}
           </h1>
           <div className="flex items-center mb-6">
             <Image
-              src={post?.author?.avatar || "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXNrMGVjOXI2NjV4bmM5OWsxdDgycGg0MjRpMDZjejhvazRpdjZneiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tHIRLHtNwxpjIFqPdV/giphy.webp"}
+              src={
+                post?.author?.avatar ||
+                "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXNrMGVjOXI2NjV4bmM5OWsxdDgycGg0MjRpMDZjejhvazRpdjZneiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tHIRLHtNwxpjIFqPdV/giphy.webp"
+              }
               alt={post?.author?.username}
               width={40}
               height={40}

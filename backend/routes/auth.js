@@ -71,15 +71,18 @@ router.post("/login", async (req, res) => {
     res.cookie("token", token);
     res.json({
       username: user.username,
+      name: user.name,
+      bio: user.bio,
+      email: user.email,
       profilePicture: user.profilePicture,
       userId: user._id,
+      isAdmin: user.isAdmin,
       token,
     });
   } catch (error) {
     res.status(500).json({ message: "Error logging in", error: error.message });
   }
 });
-
 
 // Logout route
 router.get("/logout", (req, res) => {

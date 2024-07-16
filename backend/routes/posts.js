@@ -3,23 +3,21 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
-const { extractFirstImageSrc } = require("../utils/extractor");
 const auth = require("../middleware/auth");
 
 // Create a new post
-router.post("/", auth , async (req, res) => {
-  const { title, description, content, authorId, tags } = req.body;
+router.post("/", auth, async (req, res) => {
+  const { title, description, content, authorId, tags, coverImage } = req.body;
   debug("Creating new post:", req.body);
 
   try {
     // Split the tags string into an array if provided, otherwise set an empty array
     const tagsArray = tags ? tags.split(",").map((tag) => tag.trim()) : [];
-    const extractedSrc = extractFirstImageSrc(content);
 
     const post = new Post({
       title,
       content,
-      coverImage: extractedSrc,
+      coverImage,
       description,
       author: authorId,
       tags: tagsArray,
@@ -147,6 +145,7 @@ router.get("/popular", async (req, res) => {
 
 // Get posts by author ID
 router.get("/author/:authorId", async (req, res) => {
+  debug(req.params.authorId)
   try {
     const { page = 1, limit = 10 } = req.query;
     const options = {

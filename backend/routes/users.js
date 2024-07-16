@@ -1,3 +1,4 @@
+const debug = require("debug")("blogmos:development");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
@@ -14,17 +15,17 @@ router.get("/:id", async (req, res) => {
 
 // Update a user profile
 router.put("/:id", async (req, res) => {
-  const { username, bio, profilePicture } = req.body;
+  const { name, email, bio, profilePicture } = req.body;
 
   try {
     const user = await User.findByIdAndUpdate(
       req.params.id,
-      { username, bio, profilePicture },
-      { new: true }
+      { bio, profilePicture, name, email }
     );
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: "Error updating user", error: err });
+    debug(err)
   }
 });
 

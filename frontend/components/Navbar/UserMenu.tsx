@@ -1,10 +1,17 @@
 "use client";
-import React from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
 const UserMenu = () => {
   const { user, logout } = useAuth();
+  const [isToggled, setIsToggled] = useState(false);
+  const dropdownRef = useRef<HTMLUListElement | null>(null);
+  const handleDropdown = () => {
+    setIsToggled(!isToggled);
+  };
   if (!user)
     return (
       <div className="space-x-5 max-md:space-x-2 flex items-center">
@@ -27,40 +34,46 @@ const UserMenu = () => {
   if (user)
     return (
       <div className="dropdown relative dropdown-end">
-        <label
+        <button
           tabIndex={0}
           role="button"
-          htmlFor="dropdown-toggle"
           className="btn btn-ghost btn-circle avatar"
+          onClick={handleDropdown}
         >
           <div className="w-fit border-2 rounded-full overflow-hidden">
             <Image
               alt="Tailwind CSS Navbar component"
               src={
+                user.profilePicture ||
                 "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXh1enhwNm1vZGxjMGljZ2dlNjhtd2tnMmE5MHRmZTU2OWNrcTE1aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tHIRLHtNwxpjIFqPdV/giphy.webp"
               }
+              className="object-cover h-7 w-7"
               width={30}
               height={30}
             />
           </div>
-        </label>
-
-        <input type="checkbox" className="peer" id="dropdown-toggle" hidden />
-        <ul
+        </button>
+        <motion.ul
+          initial={{ height: 0, opacity: 0, top: 50 }}
+          animate={isToggled ? { height: "", opacity: 1, top: "" } : {}}
+          ref={dropdownRef}
           tabIndex={0}
-          className="menu menu-sm dark:bg-zinc-800/50 bg-black/90 text-white min-w-40 dropdown-content translate-y-2 right-2 bg-base-100 hidden peer-checked:flex flex-col gap-2 absolute rounded-lg rounded-b-lg z-[1] mt-3 p-3 shadow"
+          onClick={handleDropdown}
+          className="menu menu-sm overflow-hidden dark:bg-zinc-800/50 bg-black/90 text-white min-w-52 dropdown-content translate-y-2 right-2 bg-base-100 flex flex-col justify-between gap-2 absolute rounded-lg rounded-b-lg z-[1] mt-3 p-3 shadow"
         >
           <li className="*:block">
-            <span className="text-xs">Welcome</span>
-            <span className="text-yellow-400">@{user.username}</span>
+            <span className="text-xs">Signed as</span>
+            <span className="text-xs">{user.email}</span>
+            <hr className="mt-2" />
           </li>
-          <hr />
           <li>
-            <Link
-              className="justify-between"
-              href={`/blogs/profile${user.userId}`}
-            >
+            <Link className="justify-between" href={`/profile/${user.userId}`}>
               Profile
+            </Link>
+          </li>
+          <li>
+            <Link className="justify-between" href={`/profile/${user.userId}/posts/manage`}>
+              Manage posts
             </Link>
           </li>
           <li>
@@ -82,7 +95,7 @@ const UserMenu = () => {
               <div className="">Logout</div>
             </button>
           </li>
-        </ul>
+        </motion.ul>
       </div>
     );
 };

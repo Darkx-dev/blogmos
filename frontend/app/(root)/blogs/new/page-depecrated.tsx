@@ -1,165 +1,110 @@
 "use client";
-import React, { useState, useRef, useMemo } from "react";
-import { Jodit } from "jodit-react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { extractFirstImageSrc } from "@/utils/html";
-import DOMPurify from "dompurify";
 import api from "@/utils/api";
 import { useRouter } from "next/navigation";
-import { compressImage } from "@/utils/image";
-import Image from "next/image";
+import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
-const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
+import DOMPurify from "dompurify";
+import hljs from "highlight.js";
+import "highlight.js/styles/tokyo-night-dark.min.css";
+import "highlight.js/styles/tokyo-night-dark.min.css";
+import { extractFirstImageSrc } from "@/utils/html";
 
-const New: React.FC = () => {
-  const { user } = useAuth();
-  const [content, setContent] = useState<string>("");
-  const authorId = user?.userId;
-  const [error, setError] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [tags, setTags] = useState<string>("");
-  const [headerImage, setHeaderImage] = useState<string>("");
-  const router = useRouter();
-
-  const config = useMemo(
-    () => ({
-      readonly: false,
-      toolbar: true,
-      toolbarSticky: false,
-      toolbarAdaptive: false,
-      buttons: [
-        "source",
-        "|",
-        "bold",
-        "italic",
-        "underline",
-        "strikethrough",
-        "eraser",
-        "|",
-        "ul",
-        "ol",
-        "|",
-        "outdent",
-        "indent",
-        "|",
-        "font",
-        "fontsize",
-        "brush",
-        "paragraph",
-        "|",
-        "image",
-        "video",
-        "table",
-        "link",
-        "|",
-        "align",
-        "undo",
-        "redo",
-        "|",
-        "hr",
-        "copyformat",
-        "fullsize",
-        "print",
-        "about",
-        "|",
+const ReactQuill = dynamic(
+  () => {
+    hljs.configure({
+      languages: [
+        "javascript",
+        "CSS",
+        "HTML",
+        "python",
+        "java",
+        "c",
+        "c++",
+        "bash",
+        "markdown",
       ],
-      // Adding image options to the context menu
-      contextmenu: {
-        items: {
-          image: "Image Properties",
-        },
-      },
-      // Adding style classes for images
-      style: {
-        image: "image-styling inline-block", // Class to add to images
-      },
-    }),
-    []
-  );
+    });
+    // @ts-ignore
+    window.hljs = hljs;
+    return import("react-quill");
+  },
+  {
+    ssr: false,
+    loading: () => <p>Quill loading</p>,
+  }
+);
 
-  const handleHeaderImageUpload = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const compressedImage = await compressImage(
-          reader.result as string,
-          0.7
-        );
-        setHeaderImage(compressedImage);
-      };
-      reader.readAsDataURL(file);
-    }
+const CreatePost = () => {
+  const router = useRouter();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [description, setDescription] = useState("");
+  const [tags, setTags] = useState("");
+  const [error, setError] = useState("");
+  const { user, logout } = useAuth();
+
+  const modules = {
+    syntax: true,
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike"],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ script: "sub" }, { script: "super" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      ["link", "image"],
+      ["clean"],
+    ],
   };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "code-block",
+    "list",
+    "bullet",
+    "script",
+    "indent",
+    "link",
+    "image",
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return setError("Please login first");
     try {
       const sanitizedContent = DOMPurify.sanitize(content);
-
-      // Compress images in the content
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(sanitizedContent, "text/html");
-      const body = doc.body; // Focus on the body content
-      const images = Array.from(body.getElementsByTagName("img"));
-
-      for (let img of images) {
-        const src = img.getAttribute("src");
-        if (src && src.startsWith("data:image")) {
-          const compressedSrc = await compressImage(src, 0.7); // Adjust quality as needed
-          img.setAttribute("src", compressedSrc);
-        }
-      }
-
-      const compressedContent = body.innerHTML; // Use innerHTML of body
-
       const response = await api.post("/posts", {
         title,
         description,
-        content: compressedContent,
-        authorId,
+        content: sanitizedContent,
+        authorId: user.userId,
         tags,
-        coverImage: headerImage || extractFirstImageSrc(compressedContent),
+        coverImage: extractFirstImageSrc(sanitizedContent),
       });
       const data = response.data;
       router.push(`/blogs/${data._id}`);
     } catch (err) {
-      setError(
-        "Failed to create post. Please try again or Relogin (Make sure to copy your content"
-      );
+      setError("Failed to create post. Please try again or Relogin (Make sure to copy your content");
     }
   };
+
+  useEffect(() => {
+    let timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => setError(""), 5000);
+  }, [error]);
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Create New Blog Post</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="headerImage" className="block text-sm font-medium">
-            Header Image
-          </label>
-          <input
-            type="file"
-            id="headerImage"
-            accept="image/*"
-            onChange={handleHeaderImageUpload}
-            className="mt-1 block w-full"
-          />
-          {headerImage && (
-            <Image
-              src={headerImage}
-              alt="Header preview"
-              className="mt-2 max-h-40 object-cover w-auto h-auto"
-              width={0}
-              height={0}
-              sizes="200"
-            />
-          )}
-        </div>
         <div>
           <label htmlFor="title" className="block text-sm font-medium">
             Title (*)
@@ -189,14 +134,15 @@ const New: React.FC = () => {
           <p className="mt-2 text-sm text-red-600">{error}</p>
         </div>
 
-        <div className="text-black">
-          <JoditEditor
+        <div className="relative">
+          <ReactQuill
+            theme="snow"
             value={content}
-            config={config}
-            onChange={(newContent: string) => {
-              setContent(newContent);
-            }}
-            onBlur={(newContent: string) => setContent(newContent)}
+            onChange={setContent}
+            modules={modules}
+            formats={formats}
+            className=" *:first:*:z-50 *:last:*:min-h-32 z-[999999999]"
+            placeholder="Start writing content..."
           />
         </div>
 
@@ -252,4 +198,4 @@ const New: React.FC = () => {
   );
 };
 
-export default New;
+export default CreatePost;

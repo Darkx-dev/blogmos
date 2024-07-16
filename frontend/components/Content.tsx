@@ -15,7 +15,7 @@ const Content = ({ content }: { content: string }) => {
   useEffect(() => {
     setMounted(true);
     if (contentRef.current) {
-      const codeBlocks = contentRef.current.querySelectorAll("pre.ql-syntax");
+      const codeBlocks = contentRef.current.querySelectorAll("pre");
       codeBlocks.forEach((block) => {
         hljs.highlightElement(block as HTMLElement);
       });
@@ -25,18 +25,14 @@ const Content = ({ content }: { content: string }) => {
   const sanitizedHtml = content;
 
   const wrapPreBlocks = (node: any) => {
-    if (
-      node.type === "tag" &&
-      node.name === "pre" &&
-      node.attribs.class === "ql-syntax"
-    ) {
+    if (node.type === "tag" && node.name === "pre") {
       const code = node.children[0].data;
       console.log(domToReact(node.children));
       return (
         <>
-          <div className="code-block-wrapper overflow-auto">
+          <div className="code-block-wrapper rounded-lg overflow-auto relative">
             <CopyButton code={code} />
-            <pre className="ql-syntax">{domToReact(node.children)}</pre>
+            <pre className="hljs px-4 py-4">{domToReact(node.children)}</pre>
           </div>
         </>
       );
@@ -47,7 +43,7 @@ const Content = ({ content }: { content: string }) => {
     <div
       id="content-viewer"
       ref={contentRef}
-      className={`hljs ${mounted && theme} w-full overflow-x-auto`}
+      className={`w-full overflow-x-auto rounded-lg p-1`}
     >
       {parse(sanitizedHtml, { replace: wrapPreBlocks })}
     </div>

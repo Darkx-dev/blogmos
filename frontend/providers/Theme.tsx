@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 const Theme = ({ children }: { children: ReactNode }) => {
   return (
-    <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
+    <ThemeProvider defaultTheme="dark" attribute="class" enableSystem>
       {children}
     </ThemeProvider>
   );

@@ -1,4 +1,4 @@
-@import url("./code-block-styles.css");
+/* @import url("./code-block-styles.css"); */
 
 @tailwind base;
 @tailwind components;
@@ -29,10 +29,6 @@ body {
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
-}
-
-#content-viewer {
-  background-color: transparent !important;
 }
 
 /* Reset heading font sizes to their default values */
@@ -69,8 +65,9 @@ body {
 #content-viewer img {
   align-self: center;
   border-radius: 10px;
-  height: 60vh;
-  object-fit: auto;
+  max-height: 60vh;
+  width: 100%;
+  object-fit: cover;
 }
 
 input {
@@ -81,17 +78,34 @@ body.no-scroll {
   overflow-y: hidden;
 }
 
-div.quill {
-  background-color: #42454555;
-  color: white;
+/* div.quill {
+  display: flex;
+  flex-direction: column-reverse;
   backdrop-filter: blur(10px);
   border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 1px 1px 5px 5px #00000010;
+}
+
+div.quill > div.ql-toolbar.ql-snow {
+  background-color: #42454555;
+  color: white;
+}
+
+div.quill > div.ql-container.ql-snow {
+  background-color: #ffffff;
+  color: currentColor;
 }
 
 div.ql-toolbar.ql-snow,
 div.ql-container.ql-snow {
   outline: none !important;
   border: none !important;
+}
+
+html.dark div.ql-container.ql-snow {
+  color: currentColor;
+  background-color: #42454555;
 }
 
 div.ql-container.ql-snow > *::before {
@@ -108,7 +122,7 @@ div.ql-container > div.ql-editor.ql-blank > p::before {
 
 div.quill > *:last-child {
   background-color: rgba(0, 0, 0, 0.475);
-}
+} */
 
 /* .pattern {
   width: 100%;
