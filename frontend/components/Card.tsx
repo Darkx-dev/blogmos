@@ -89,7 +89,7 @@ const Card = ({
         </div>
       </div>
       <div className="absolute top-2 right-2">
-        <ShareButton url={`posts/${postId}`} title={title} text={description} />
+        <ShareButton url={`blogs/${postId}`} title={title} text={description} />
       </div>
     </motion.div>
   );

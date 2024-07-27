@@ -2,7 +2,7 @@ const debug = require("debug")("blogmos:development");
 const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res, next) => {
-  const { token } = req.cookies;
+  const { token } = await req.cookies;
 
   if (!token) {
     debug("TOKEN NOT FOUND");
