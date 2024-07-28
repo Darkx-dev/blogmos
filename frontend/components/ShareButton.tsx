@@ -17,7 +17,7 @@ const ShareButton = ({
         global.navigator.share({
           title,
           text, 
-          url: `${window.location.origin}/${url}`, 
+          url: `\n${window.location.origin}/${url}`, 
         });
         console.log("Shared successfully");
       } else {
@@ -30,10 +30,8 @@ const ShareButton = ({
   };
 
   return (
-    <button onClick={handleShare}>
-      
-      <IconShare fontSize={25}/>
-      
+    <button onClick={handleShare} className=" p-1 rounded-md bg-black/30">
+      <IconShare fontSize={25} color="#fff"/>
     </button>
   );
 };
