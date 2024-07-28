@@ -54,7 +54,7 @@ const Card = ({
           priority
         />
       </div>
-      <div className="p-4 absolute left-0 bottom-0 backdrop-blur w-full">
+      <div className="p-4 absolute left-0 bottom-0 backdrop-blur bg-black/30 w-full">
         <div>
           <Link
             href={`/blogs/${postId}`}

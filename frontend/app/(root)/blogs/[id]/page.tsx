@@ -15,7 +15,7 @@ const Post = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8" suppressHydrationWarning>
-      <article className="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden">
+      <article className="bg-white dark:bg-zinc-900 shadow-2xl rounded-lg overflow-hidden">
         <div className="relative w-full">
           {post.coverImage && (
             <Image
