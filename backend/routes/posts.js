@@ -6,7 +6,7 @@ const User = require("../models/User");
 const auth = require("../middleware/auth");
 
 // Create a new post
-router.post("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
   const { title, description, content, authorId, tags, coverImage } = req.body;
   debug("Creating new post:", req.body);
 
