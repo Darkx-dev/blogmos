@@ -99,7 +99,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 [Roshan] - [@RoshanK20798412](https://twitter.com/RoshanK20798412)
 
-Project Link: [https://github.com/Darkx-dev/blogmo](https://github.com/Darkx-dev/blogmo)
+Project Link: [https://github.com/Darkx-dev/blogmo](https://github.com/Darkx-dev/blogmos)
 
 ---
 
